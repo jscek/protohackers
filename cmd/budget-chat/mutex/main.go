@@ -21,10 +21,12 @@ var (
 )
 
 func main() {
-	protohackers.StartTCPServer(handler)
+	config := protohackers.ParseConfig()
+	server := protohackers.NewServer(config)
+	server.StartTCP(handle)
 }
 
-func handler(conn net.Conn) {
+func handle(conn net.Conn) {
 	conn.Write([]byte("welcome! what's your name?\n"))
 
 	scanner := bufio.NewScanner(conn)

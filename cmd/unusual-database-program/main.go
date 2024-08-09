@@ -13,10 +13,12 @@ var (
 )
 
 func main() {
-	protohackers.StartUDPServer(handler)
+	config := protohackers.ParseConfig()
+	server := protohackers.NewServer(config)
+	server.StartUDP(handle)
 }
 
-func handler(conn net.PacketConn) {
+func handle(conn net.PacketConn) {
 	for {
 		buf := make([]byte, 1000)
 		n, addr, err := conn.ReadFrom(buf)

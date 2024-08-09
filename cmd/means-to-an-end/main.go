@@ -33,7 +33,9 @@ func (msg *Message) UnmarshallBinary(data []byte) error {
 }
 
 func main() {
-	protohackers.StartTCPServer(handle)
+	config := protohackers.ParseConfig()
+	server := protohackers.NewServer(config)
+	server.StartTCP(handle)
 }
 
 func handle(conn net.Conn) {
